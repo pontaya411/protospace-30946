@@ -6,7 +6,8 @@ class Comment < ApplicationRecord
 
   #  各バリデーションの設定
   validates :text,      presence: true
-  validates :user,      presence: true
-  validates :prototype, presence:true
+  # 解答より　コメントアウト
+  # validates :user,      presence: true
+  # validates :prototype, presence:true
 
 end

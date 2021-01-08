@@ -1,4 +1,5 @@
-<%= form_with model: @prototype, local: true do |f|%>
+<%# 解答よりmodel: @prototype => prototypeへ %>
+<%= form_with model: prototype, local: true do |f|%>
   <div class="field">
     <%= f.label :title, "プロトタイプの名称" %><br />
     <%= f.text_field :title %>

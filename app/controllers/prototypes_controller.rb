@@ -15,24 +15,21 @@ class PrototypesController < ApplicationController
   def create
     @prototype = Prototype.new(prototype_params)
     if @prototype.save
-      redirect_to edit_prototype_path
+      redirect_to root_path
     else   
       render :new
     end  
   end
 
   def show
-    @prototype = Prototype.find(params[:id])
     @comment = Comment.new
-    @comments = @prototype.comments.all
+    @comments = @prototype.comments
   end 
 
   def edit
-    @prototype = Prototype.find(params[:id])
   end
   
   def update
-    @prototype = Prototype.find(params[:id])
     if @prototype.update(prototype_params)
       redirect_to root_path
     else
@@ -41,9 +38,10 @@ class PrototypesController < ApplicationController
   end    
 
   def destroy
-    prototype = Prototype.find(params[:id])
-    if prototype.destroy
+    if @prototype.destroy
       redirect_to root_path
+    else
+      redirect_to root_path  
     end  
   end
 
@@ -54,10 +52,19 @@ class PrototypesController < ApplicationController
     params.require(:prototype).permit(:title, :catch_copy, :concept, :image).merge(user_id: current_user.id)
   end
 
-  def move_to_index
-    unless user_signed_in?
-      redirect_to action: :index
-    end
+   def move_to_index
+     unless user_signed_in?
+       redirect_to action: :index
+     end
+   end
+
+  # 下記解答より
+  def set_prototype
+    @prototype = Prototype.find(params[:id])
   end
+  
+  def contributer_confirmation
+    redirect_to root_path unless current_user == @prototype.user
+  end  
 
 end

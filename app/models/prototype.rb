@@ -6,7 +6,8 @@ class Prototype < ApplicationRecord
   has_many :comments
   # ひとつのprototypeが削除されたら関連する情報も削除される記述
   has_many :comments, dependent: :destroy
-  has_many :users, dependent: :destroy
+  # 解答よりコメントアウト
+  # has_many :users, dependent: :destroy
 
   # 各バリデーション設定
   validates :image, presence: true
