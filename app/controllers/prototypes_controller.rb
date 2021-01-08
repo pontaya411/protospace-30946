@@ -4,6 +4,8 @@ class PrototypesController < ApplicationController
 
   before_action :move_to_index, except: [:index, :show ]
 
+  before_action :set_prototype, only: [:show, :edit, :update, :destroy]
+
   def index # indexアクションを定義した
     @prototypes = Prototype.all
   end
@@ -59,6 +61,7 @@ class PrototypesController < ApplicationController
    end
 
   # 下記解答より
+  # DRYのための記述。show,edit,update,destroyアクションに共通して使う定義の記述
   def set_prototype
     @prototype = Prototype.find(params[:id])
   end
